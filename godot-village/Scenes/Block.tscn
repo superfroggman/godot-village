@@ -5,11 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[node name="Block" type="RigidBody2D"]
-position = Vector2( 736, -688 )
-gravity_scale = 0.0
-linear_damp = 2.0
-angular_damp = 2.0
+[node name="Block" type="StaticBody2D"]
 __meta__ = {
 "_edit_group_": true
 }

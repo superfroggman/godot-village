@@ -2,13 +2,23 @@ extends Node2D
 
 
 # Declare member variables here. Examples:
-export var gridSize = 32
+export var gridSize = 64
 export (PackedScene) var Floor
 export (PackedScene) var Wall
 
 
+var width = 100
+var height = 100
+var matrix = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for x in range(width):
+		matrix.append([])
+		for y in range(height):
+			matrix[x].append(0)
+
+			
 	pass # Replace with function body.
 
 
@@ -19,23 +29,20 @@ func _ready():
 func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
-		print("Mouse Click/Unclick at: ", event.position)
 		
-		var pos = Vector2()
-		print(event.position.x + $Player.position.x * $Player/Camera2D.zoom.x + get_viewport_rect().size.x)
-		#pos.x = gridSize * round((event.position.x + $Player.position.x * $Player/Camera2D.zoom.x) + get_viewport_rect().size.x/gridSize)
-		#pos.y = gridSize * round((event.position.y + $Player.position.y * $Player/Camera2D.zoom.y) + get_viewport_rect().size.y/gridSize)
-		
-		print((get_viewport_rect().size.x/2))
-		pos.x = ($Player.position.x + event.position.x - get_viewport_rect().size.x/2)
-		pos.y = ($Player.position.y + event.position.y - get_viewport_rect().size.y/2)
+		var gridPos = Vector2()
+		gridPos.x = round(($Player.position.x + event.position.x - get_viewport_rect().size.x/2)/gridSize)
+		gridPos.y = round(($Player.position.y + event.position.y - get_viewport_rect().size.y/2)/gridSize)
 		
 		if(event.is_action_pressed("mouse_left")):
-			print("ah")
-			var myFloor = Floor.instance()
-			myFloor.position = pos
-			add_child(myFloor)
+			if(!matrix[gridPos.x][gridPos.y]):
+				var myFloor = Floor.instance()
+				myFloor.position = gridPos*gridSize
+				matrix[gridPos.x][gridPos.y] = myFloor
+				add_child(myFloor)
 		elif(event.is_action_pressed("mouse_right")):
-			var wall = Wall.instance()
-			wall.position = pos
-			add_child(wall)
+			if(matrix[gridPos.x][gridPos.y]):
+				matrix[gridPos.x][gridPos.y].queue_free()
+
+
+
