@@ -43,3 +43,5 @@ func _process(delta):
 	move_and_collide(velocity, true, true, false)
 	
 	position += velocity * delta
+	
+
