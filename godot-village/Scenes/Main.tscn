@@ -14,14 +14,107 @@ texture = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 277.248, 130.206 )
+[node name="Block" type="RigidBody2D" parent="."]
+position = Vector2( 736, -688 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+[node name="Sprite" type="Sprite" parent="Block"]
 texture = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
+shape = SubResource( 1 )
+
+[node name="Block6" type="RigidBody2D" parent="."]
+position = Vector2( -1032, -720 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block6"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block6"]
+shape = SubResource( 1 )
+
+[node name="Block7" type="RigidBody2D" parent="."]
+position = Vector2( 1064, 1208 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block7"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block7"]
+shape = SubResource( 1 )
+
+[node name="Block2" type="RigidBody2D" parent="."]
+position = Vector2( -1384, 912 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block2"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block2"]
+shape = SubResource( 1 )
+
+[node name="Block3" type="RigidBody2D" parent="."]
+position = Vector2( -664, -96 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block3"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block3"]
+shape = SubResource( 1 )
+
+[node name="Block4" type="RigidBody2D" parent="."]
+position = Vector2( 232, 312 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block4"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block4"]
+shape = SubResource( 1 )
+
+[node name="Block5" type="RigidBody2D" parent="."]
+position = Vector2( 504, 368 )
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Block5"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block5"]
 shape = SubResource( 1 )
