@@ -17,6 +17,8 @@ _global_script_class_icons={
 
 config/name="godot-village"
 run/main_scene="res://Scenes/Main.tscn"
+boot_splash/image="res://Sprites/guy1.png"
+boot_splash/bg_color=Color( 0.768627, 0.811765, 0.458824, 1 )
 config/icon="res://Sprites/icon.png"
 
 [input]
