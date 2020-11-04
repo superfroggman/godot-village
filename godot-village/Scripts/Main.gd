@@ -3,8 +3,6 @@ extends Node2D
 
 # Declare member variables here. Examples:
 export var gridSize = 64
-export (PackedScene) var Floor
-export (PackedScene) var Wall
 export(Array, PackedScene) var Blocks
 
 
@@ -23,10 +21,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if(Input.is_action_pressed("block1")):
-		currentBlockType = 0
-	if(Input.is_action_pressed("block2")):
-		currentBlockType = 1
+	
+	#Change block type
+	if(Input.is_action_just_pressed("blockNext")):
+		currentBlockType += 1
+	if(Input.is_action_just_pressed("blockPrev")):
+		currentBlockType -= 1
+	currentBlockType = clamp(currentBlockType, 0, Blocks.size()-1)
 	
 
 func _input(event):
@@ -37,6 +38,8 @@ func _input(event):
 
 func placeBlocks(event):
 	var gridPos = Vector2()
+	
+	#Snap to grid
 	gridPos.x = round(($Player.position.x + event.position.x - get_viewport_rect().size.x/2)/gridSize)
 	gridPos.y = round(($Player.position.y + event.position.y - get_viewport_rect().size.y/2)/gridSize)
 	
