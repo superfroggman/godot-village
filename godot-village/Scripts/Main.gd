@@ -3,8 +3,7 @@ extends Node2D
 
 # Declare member variables here. Examples:
 export var gridSize = 64
-export(Array, PackedScene) var Blocks
-
+export(Array, PackedScene) var blocks
 
 var width = 100
 var height = 100
@@ -27,16 +26,16 @@ func _process(delta):
 		currentBlockType += 1
 	if(Input.is_action_just_pressed("blockPrev")):
 		currentBlockType -= 1
-	currentBlockType = clamp(currentBlockType, 0, Blocks.size()-1)
+	currentBlockType = clamp(currentBlockType, 0, blocks.size()-1)
 	
 
 func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
-		placeBlocks(event)
+		placeblocks(event)
 
 
-func placeBlocks(event):
+func placeblocks(event):
 	var gridPos = Vector2()
 	
 	#Snap to grid
@@ -46,7 +45,7 @@ func placeBlocks(event):
 	if(event.is_action_pressed("mouse_left") && gridPos.x >= 0 && gridPos.y >= 0):
 		if(!matrix[gridPos.x][gridPos.y]):
 			print("x: ", gridPos.x, " y: ", gridPos.y, " cool: ", matrix[gridPos.x][gridPos.y])
-			var block = Blocks[currentBlockType].instance()
+			var block = blocks[currentBlockType].instance()
 			block.position = gridPos*gridSize
 			matrix[gridPos.x][gridPos.y] = block
 			add_child(block)
