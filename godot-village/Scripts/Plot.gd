@@ -2,24 +2,21 @@ extends Area2D
 
 export var gridSize = 64
 export(Array, PackedScene) var blocks
+export(PackedScene) var blockContainer
 
 var width = 8
 var height = 8
+
 var placedBlocks = []
-var placedRoofs = []
 
 var currentBlockType = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for x in range(width):
-		var col = []
-		col.resize(height)
-		placedBlocks.append(col)
-	for x in range(width):
-		var col = []
-		col.resize(height)
-		placedRoofs.append(col)
+		placedBlocks.append([])
+		for y in range(height):
+			placedBlocks[x].append(blockContainer)
 
 
 func _on_Plot_input_event(viewport, event, shape_idx):
