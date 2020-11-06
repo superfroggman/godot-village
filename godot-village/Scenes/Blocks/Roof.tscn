@@ -23,12 +23,12 @@ tracks/0/keys = {
 }
 
 [node name="Roof" type="StaticBody2D"]
+z_index = 100
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-z_index = 20
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
