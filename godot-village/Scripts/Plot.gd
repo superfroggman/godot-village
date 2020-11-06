@@ -2,27 +2,24 @@ extends Area2D
 
 export var gridSize = 64
 export(Array, PackedScene) var blocks
-var node = preload("res://Scenes/Node.tscn")
-var blockContainer = preload("res://Scenes/BlockContainer.tscn")
 
 var width = 8
 var height = 8
+var placedBlocks = []
+var placedRoofs = []
 
 var currentBlockType = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for x in range(width):
-		#placedBlocks.append([])
-		var column = node.instance()
-		column.name = String(x)
-		add_child(column)
-		for y in range(height):
-			var block = blockContainer.instance()
-			block.name = String(y)
-			get_node(String(x)).add_child(block)
-			
-			print("x: ", get_node(String(x)).name, " y: ", get_node(String(x)).get_node(String(y)).name)
+		var col = []
+		col.resize(height)
+		placedBlocks.append(col)
+	for x in range(width):
+		var col = []
+		col.resize(height)
+		placedRoofs.append(col)
 
 
 func _on_Plot_input_event(viewport, event, shape_idx):
@@ -36,22 +33,24 @@ func _on_Plot_input_event(viewport, event, shape_idx):
 		
 		if(event.is_action_pressed("mouse_left") && gridPos.x >= 0 && gridPos.y >= 0 && gridPos.x < width && gridPos.y < width):
 			
-			var block = blocks[currentBlockType].instance()
-			block.position = gridPos*gridSize+Vector2(32,32)
-			
-			if(get_node(String(gridPos.x)) && get_node(String(gridPos.x)).get_node(String(gridPos.y))):
-				var container = get_node(String(gridPos.x)).get_node(String(gridPos.y))
-				container.add_child(block)
-			#print(placedBlocks[gridPos.x][gridPos.y].get_children())
-			#print(placedBlocks[gridPos.x][gridPos.y].get_node("Roof"))
-			
-
-			
+			if(currentBlockType == 2):
+				placedRoofs = placeBlock(placedRoofs, gridPos)
+			else:
+				placedBlocks = placeBlock(placedBlocks, gridPos)
+				
 		elif(event.is_action_pressed("mouse_right")):
-			#placedBlocks = removeBlock(placedBlocks, gridPos)
-			pass
+			placedRoofs = removeBlock(placedRoofs, gridPos)
+			placedBlocks = removeBlock(placedBlocks, gridPos)
 
-
+func placeBlock(list, gridPos):
+	if(!list[gridPos.x][gridPos.y]):
+		
+		var block = blocks[currentBlockType].instance()
+		block.position = gridPos*gridSize+Vector2(32,32)
+		list[gridPos.x][gridPos.y] = block
+		add_child(block)
+		
+	return list
 
 func removeBlock(list, gridPos):
 	if(list[gridPos.x][gridPos.y]):
@@ -69,21 +68,15 @@ func _process(delta):
 
 
 
-#
-#func _on_Plot_body_entered(body):
-#	for x in placedBlocks:
-#		for y in x:
-#			var roof = y.get_node("Roof")
-#
-#
-#			if(roof):
-#				var animPlayer = roof.get_node("AnimationPlayer")
-#				if(animPlayer):
-#					animPlayer.current_animation = "FadeOut"
-#
-#func _on_Plot_body_exited(body):
-#	for x in placedBlocks:
-#		for y in x:
-#			var animPlayer = y.get_node("Roof").get_node("AnimationPlayer")
-#			if(animPlayer):
-#				animPlayer.current_animation = "FadeOut"
+
+func _on_Plot_body_entered(body):
+	for x in placedRoofs:
+		for y in x:
+			if(y):
+				y.get_node("AnimationPlayer").current_animation = "FadeOut"
+
+func _on_Plot_body_exited(body):
+	for x in placedRoofs:
+		for y in x:
+			if(y):
+				y.get_node("AnimationPlayer").current_animation = "FadeIn"

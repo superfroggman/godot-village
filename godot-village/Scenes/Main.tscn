@@ -19,3 +19,6 @@ visible = false
 
 [node name="Plot" parent="Plots" instance=ExtResource( 7 )]
 position = Vector2( 576, -192 )
+
+[node name="Plot2" parent="Plots" instance=ExtResource( 7 )]
+position = Vector2( 0, 320 )
