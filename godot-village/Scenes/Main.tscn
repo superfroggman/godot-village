@@ -13,13 +13,9 @@ texture = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
 [node name="GUI" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="Plots" type="Node" parent="."]
 
 [node name="Plot" parent="Plots" instance=ExtResource( 7 )]
 position = Vector2( 576, -192 )
-gridSize = null
-
-[node name="Plot2" parent="Plots" instance=ExtResource( 7 )]
-position = Vector2( 0, 320 )
-gridSize = null

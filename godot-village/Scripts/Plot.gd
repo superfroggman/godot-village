@@ -30,24 +30,17 @@ func _on_Plot_input_event(viewport, event, shape_idx):
 		
 		if(event.is_action_pressed("mouse_left") && gridPos.x >= 0 && gridPos.y >= 0 && gridPos.x < width && gridPos.y < width):
 			
-			if(currentBlockType == 2):
-				placedRoofs = placeBlock(placedRoofs, gridPos)
-			else:
-				placedBlocks = placeBlock(placedBlocks, gridPos)
-				
+			var block = blocks[currentBlockType].instance()
+			block.position = gridPos*gridSize+Vector2(32,32)
+			
+			print(placedBlocks[gridPos.x][gridPos.y].get_node("Roof"))
+			
+
+			
 		elif(event.is_action_pressed("mouse_right")):
-			placedRoofs = removeBlock(placedRoofs, gridPos)
 			placedBlocks = removeBlock(placedBlocks, gridPos)
 
-func placeBlock(list, gridPos):
-	if(!list[gridPos.x][gridPos.y]):
-		
-		var block = blocks[currentBlockType].instance()
-		block.position = gridPos*gridSize+Vector2(32,32)
-		list[gridPos.x][gridPos.y] = block
-		add_child(block)
-		
-	return list
+
 
 func removeBlock(list, gridPos):
 	if(list[gridPos.x][gridPos.y]):
@@ -67,13 +60,19 @@ func _process(delta):
 
 
 func _on_Plot_body_entered(body):
-	for x in placedRoofs:
+	for x in placedBlocks:
 		for y in x:
-			if(y):
-				y.get_node("AnimationPlayer").current_animation = "FadeOut"
+			var roof = y.get_node("Roof")
+			y.getnode
+			
+			if(roof):
+				var animPlayer = roof.get_node("AnimationPlayer")
+				if(animPlayer):
+					animPlayer.current_animation = "FadeOut"
 
 func _on_Plot_body_exited(body):
-	for x in placedRoofs:
+	for x in placedBlocks:
 		for y in x:
-			if(y):
-				y.get_node("AnimationPlayer").current_animation = "FadeIn"
+			var animPlayer = y.get_node("Roof").get_node("AnimationPlayer")
+			if(animPlayer):
+				animPlayer.current_animation = "FadeOut"
